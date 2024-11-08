@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "986135878852",
+    "firebase_url": "https://bodegacharo-238a8-default-rtdb.firebaseio.com",
+    "project_id": "bodegacharo-238a8",
+    "storage_bucket": "bodegacharo-238a8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986135878852:android:38ad4f10cc493ffe1dfd91",
+        "android_client_info": {
+          "package_name": "com.BodegaCharo.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsXk9WN44jXJnGYrQiXfbrMUYSPBVvM18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

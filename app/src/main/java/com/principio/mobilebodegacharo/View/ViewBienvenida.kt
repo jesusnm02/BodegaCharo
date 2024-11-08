@@ -18,7 +18,7 @@ import com.principio.mobilebodegacharo.ui.theme.White
 fun Welcome() {
     val navcontroller = rememberNavController()
     Scaffold(
-        topBar = { TopBarra(titulo = R.string.titulo.toString().uppercase(),
+        topBar = { TopBarra(titulo = "Bodega Charo",
             colorBarra = White,
             colortext = ColorText
         ) },
