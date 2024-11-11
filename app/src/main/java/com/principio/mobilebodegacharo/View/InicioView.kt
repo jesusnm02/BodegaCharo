@@ -1,8 +1,7 @@
-package com.principio.mobilebodegacharo.ComponentUI
+package com.principio.mobilebodegacharo.View
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -27,23 +26,29 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.principio.mobilebodegacharo.DTO.DTOCategoria
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.yield
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    categorias: Flow<List<DTOCategoria>>
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopBar()
         SearchBar()
         Carousel()
-        CategoriesSection()
+        CategoriesSection(categorias)
     }
 }
 
@@ -132,46 +137,41 @@ fun Carousel() {
 }
 
 @Composable
-fun CategoriesSection() {
+fun CategoriesSection(categorias: Flow<List<DTOCategoria>>) {
+    val categoryList by categorias.collectAsState(emptyList())
+
     Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = "Nuevas Categorías", fontSize = 20.sp, color = Color.Black)
+        Text(
+            text = "Nuevas Categorías",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black
+        )
         Spacer(modifier = Modifier.height(8.dp))
 
         // Disposición de las categorías en filas de 3 elementos
-        val categories = listOf("Abarrotes", "Desayuno", "Repostería", "Golosinas", "Limpieza", "Cuidado")
-
-        Box(modifier = Modifier.fillMaxWidth()) {
-            Column {
-                categories.chunked(3).forEach { rowCategories ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp),
-                        horizontalArrangement = Arrangement.SpaceAround
+        categoryList.chunked(3).forEach { rowCategories ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                rowCategories.forEach { category ->
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.weight(1f)
                     ) {
-                        rowCategories.forEach { category ->
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Category,
-                                    contentDescription = category,
-                                    modifier = Modifier.size(60.dp),
-                                    tint = Color(0xFF6A1B9A) // Color morado
-                                )
-                                Text(text = category, fontSize = 12.sp)
-                            }
-                        }
+                        Icon(
+                            imageVector = Icons.Default.Category,
+                            contentDescription = category.NomCategoria, // Ajuste en el contentDescription
+                            modifier = Modifier.size(60.dp),
+                            tint = Color(0xFF6A1B9A) // Color morado
+                        )
+                        Text(text = category.NomCategoria, fontSize = 12.sp)
                     }
                 }
             }
         }
     }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun show() {
-    HomeScreen()
 }

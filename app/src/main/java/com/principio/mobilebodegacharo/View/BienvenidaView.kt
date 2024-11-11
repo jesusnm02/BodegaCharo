@@ -5,12 +5,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.principio.mobilebodegacharo.ComponentUI.NavigationLower
 import com.principio.mobilebodegacharo.ComponentUI.TopBarra
 import com.principio.mobilebodegacharo.Navigation.AppNavigationLower
-import com.principio.mobilebodegacharo.R
 import com.principio.mobilebodegacharo.ui.theme.ColorText
 import com.principio.mobilebodegacharo.ui.theme.White
 

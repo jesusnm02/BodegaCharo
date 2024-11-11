@@ -7,11 +7,11 @@ import com.google.firebase.database.ValueEventListener
 import com.principio.mobilebodegacharo.DTO.DTOCategoria
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
-import java.util.concurrent.Flow
+import kotlinx.coroutines.flow.Flow
 
-class ModelCategoria {
+class CategoriaModel {
     private val dbCate = FirebaseDatabase.getInstance()
-        .reference.child("Categorias")
+        .reference.child("Categoria")
 
     fun obtenerCategorias(): Flow<List<DTOCategoria>> {
         val flujo = callbackFlow {
