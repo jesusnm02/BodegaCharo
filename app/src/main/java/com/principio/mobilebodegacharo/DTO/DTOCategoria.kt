@@ -1,6 +1,6 @@
 package com.principio.mobilebodegacharo.DTO
 
 data class DTOCategoria(
-    var CategoriaId: String ?= null,
+    var CategoriaId: Int ?= null,
     var NomCategoria: String = ""
 )

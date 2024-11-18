@@ -36,19 +36,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.principio.mobilebodegacharo.DTO.DTOCategoria
+import com.principio.mobilebodegacharo.Model.CategoriaModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.yield
 
 @Composable
-fun HomeScreen(
-    categorias: Flow<List<DTOCategoria>>
-) {
+fun HomeScreen() {
+    val realTime = CategoriaModel()
+    val listaCategorias by realTime.obtenerCategorias().collectAsState(initial = emptyList())
+
+    //var personaSeleccion by remember { mutableStateOf<DTOCategoria?>(null) }
     Column(modifier = Modifier.fillMaxSize()) {
         TopBar()
         SearchBar()
         Carousel()
-        CategoriesSection(categorias)
+        CategoriesSection(listaCategorias)
     }
 }
 
@@ -137,9 +139,7 @@ fun Carousel() {
 }
 
 @Composable
-fun CategoriesSection(categorias: Flow<List<DTOCategoria>>) {
-    val categoryList by categorias.collectAsState(emptyList())
-
+fun CategoriesSection(categorias: List<DTOCategoria>) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
             text = "Nuevas Categorías",
@@ -149,26 +149,34 @@ fun CategoriesSection(categorias: Flow<List<DTOCategoria>>) {
         )
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Disposición de las categorías en filas de 3 elementos
-        categoryList.chunked(3).forEach { rowCategories ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                rowCategories.forEach { category ->
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Category,
-                            contentDescription = category.NomCategoria, // Ajuste en el contentDescription
-                            modifier = Modifier.size(60.dp),
-                            tint = Color(0xFF6A1B9A) // Color morado
-                        )
-                        Text(text = category.NomCategoria, fontSize = 12.sp)
+        if (categorias.isEmpty()) {
+            Text(
+                text = "No hay categorías disponibles",
+                fontSize = 16.sp,
+                color = Color.Gray,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        } else {
+            categorias.chunked(3).forEach { rowCategories ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    rowCategories.forEach { category ->
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Category,
+                                contentDescription = category.NomCategoria,
+                                modifier = Modifier.size(60.dp),
+                                tint = Color(0xFF6A1B9A)
+                            )
+                            Text(text = category.NomCategoria, fontSize = 12.sp)
+                        }
                     }
                 }
             }

@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.BodegaCharo.app"
+    namespace = "com.principio.mobilebodegacharo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.BodegaCharo.app"
+        applicationId = "com.principio.mobilebodegacharo"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -59,7 +59,9 @@ dependencies {
     //Navegacion
     implementation("androidx.navigation:navigation-compose:2.8.0")
     //Room
-    implementation("androidx.room:room-runtime:2.6.1") //->Manejo de bases de datos
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore) //->Manejo de bases de datos
 
     //Antes de habilitar esto debemos usar KAPT en los plugins y sincronizar
     annotationProcessor("androidx.room:room-compiler:2.6.1")
@@ -84,4 +86,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(kotlin("script-runtime"))
 }

@@ -1,5 +1,6 @@
 package com.principio.mobilebodegacharo.Model
 
+import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -18,10 +19,10 @@ class CategoriaModel {
             val listener = dbCate.addValueEventListener(
                 object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val lista = snapshot.children.mapNotNull { ele->
-                            val categorias = ele.getValue(DTOCategoria::class.java)
-                            ele.key?.let { categorias?.copy(CategoriaId = it) }
+                        val lista = snapshot.children.mapNotNull { ele ->
+                            ele.getValue(DTOCategoria::class.java) // Deserializa directamente
                         }
+                        Log.d("FirebaseData", "Categorias: $lista") // Debug
                         trySend(lista).isSuccess
                     }
 

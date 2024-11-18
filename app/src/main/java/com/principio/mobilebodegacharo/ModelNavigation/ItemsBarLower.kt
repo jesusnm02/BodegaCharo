@@ -2,8 +2,8 @@ package com.principio.mobilebodegacharo.ModelNavigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CardTravel
-import androidx.compose.material.icons.filled.Help
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Payment
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.principio.mobilebodegacharo.Navigation.ElementsNav
@@ -26,7 +26,7 @@ sealed class ItemsBarLower(
         "Pago", ElementsNav.Pago.routes)
 
     object ItemAyuda: ItemsBarLower(
-        Icons.Default.Help,
+        Icons.Default.Info,
         "Ayuda", ElementsNav.Ayuda.routes)
 
     object ItemCategorias: ItemsBarLower(

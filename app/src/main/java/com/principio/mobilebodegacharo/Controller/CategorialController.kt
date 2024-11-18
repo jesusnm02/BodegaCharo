@@ -6,13 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 class CategorialController {
     private val categoriaModel = CategoriaModel()
-    var categorias: Flow<List<DTOCategoria>>? = null
-
-    init {
-        obtenerCategorias()
-    }
-
-    fun obtenerCategorias() {
-        categorias = categoriaModel.obtenerCategorias()
-    }
+    val categorias: Flow<List<DTOCategoria>> = categoriaModel.obtenerCategorias()
 }

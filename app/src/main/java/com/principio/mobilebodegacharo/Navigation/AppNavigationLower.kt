@@ -1,11 +1,9 @@
 package com.principio.mobilebodegacharo.Navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.principio.mobilebodegacharo.Controller.CategorialController
 import com.principio.mobilebodegacharo.View.HomeScreen
 import com.principio.mobilebodegacharo.View.PaginaAyuda
 import com.principio.mobilebodegacharo.View.PaginaCategoria
@@ -18,8 +16,7 @@ fun AppNavigationLower(navcontroller: NavHostController) {
         startDestination = ElementsNav.Inicio.routes) {
         composable(route = ElementsNav.Inicio.routes) {
             //UI Inicio
-            val controller = remember { CategorialController() }
-            controller.categorias?.let { it1 -> HomeScreen(categorias = it1) }
+            HomeScreen()
         }
 
         composable(route = ElementsNav.Pedido.routes) {
