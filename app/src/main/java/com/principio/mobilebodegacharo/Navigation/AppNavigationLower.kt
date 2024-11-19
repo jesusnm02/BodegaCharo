@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.principio.mobilebodegacharo.Controller.CarruselController
+import com.principio.mobilebodegacharo.Controller.CategorialController
 import com.principio.mobilebodegacharo.View.HomeScreen
 import com.principio.mobilebodegacharo.View.PaginaAyuda
 import com.principio.mobilebodegacharo.View.PaginaCategoria
@@ -16,7 +18,9 @@ fun AppNavigationLower(navcontroller: NavHostController) {
         startDestination = ElementsNav.Inicio.routes) {
         composable(route = ElementsNav.Inicio.routes) {
             //UI Inicio
-            HomeScreen()
+            val categoriaController =  CategorialController()
+            val carruselController = CarruselController()
+            HomeScreen(categoriaController.categorias, carruselController.carrusel)
         }
 
         composable(route = ElementsNav.Pedido.routes) {
@@ -36,7 +40,7 @@ fun AppNavigationLower(navcontroller: NavHostController) {
 
         composable(route = ElementsNav.Categoria.routes) {
             //UI Categoria
-            PaginaCategoria()
+            PaginaCategoria(0)
         }
     }
 }

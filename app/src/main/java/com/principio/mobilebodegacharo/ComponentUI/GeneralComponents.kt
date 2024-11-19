@@ -165,6 +165,7 @@ fun BotonesGenericos(
 
 @Composable
 fun TextFieldGenerico(
+    ancho: Float,
     valor: String,
     label: String,
     durationAnimation: Int,
@@ -175,7 +176,7 @@ fun TextFieldGenerico(
         modifier = Modifier
             .border(width = 1.5.dp, color = BorderDark, shape = RoundedCornerShape(10.dp))
             .background(color = GrayLight)
-            .fillMaxWidth(.8f)
+            .fillMaxWidth(ancho)
             .animateContentSize(
                 animationSpec = tween(
                     durationMillis = durationAnimation,

@@ -32,7 +32,7 @@ import com.principio.mobilebodegacharo.ui.theme.White
 val textoInput: String = "buscar"
 
 @Composable
-fun PaginaCategoria() {
+fun PaginaCategoria(CategoriaId: Int) {
     var productoSearch by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
@@ -42,6 +42,7 @@ fun PaginaCategoria() {
         verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.Top)
     ) {
         TextFieldGenerico(
+            ancho = .8f,
             valor = productoSearch,
             label = textoInput.uppercase(),
             durationAnimation = 5
@@ -99,10 +100,4 @@ fun PaginaCategoria() {
         }
         ListaProductos()
     }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun sho5() {
-    PaginaCategoria()
 }
