@@ -21,10 +21,6 @@ sealed class ItemsBarLower(
         Icons.Default.CardTravel,
         "Pedidos", ElementsNav.Pedido.routes)
 
-    object ItemPago: ItemsBarLower(
-        Icons.Default.Payment,
-        "Pago", ElementsNav.Pago.routes)
-
     object ItemAyuda: ItemsBarLower(
         Icons.Default.Info,
         "Ayuda", ElementsNav.Ayuda.routes)

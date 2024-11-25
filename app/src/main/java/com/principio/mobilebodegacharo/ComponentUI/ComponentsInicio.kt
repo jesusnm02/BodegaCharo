@@ -1,5 +1,6 @@
 package com.principio.mobilebodegacharo.ComponentUI
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +15,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -94,19 +100,7 @@ fun Carousel(imagenesCarrusel: List<DTOCarrusel>) {
         Spacer(modifier = Modifier.height(8.dp))
         // Carrusel de imágenes
         if(imagenesCarrusel.isEmpty()) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .height(40.dp)
-                        .width(40.dp),
-                    strokeWidth = 2.dp,
-                    color = Color.Black
-                )
-            }
+            cargandoCirculo()
         } else {
             val listState = rememberLazyListState()
             val itemCount = imagenesCarrusel.size // Basado en el tamaño de la lista proporcionada
@@ -145,6 +139,7 @@ fun Carousel(imagenesCarrusel: List<DTOCarrusel>) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoriesSection(
     categorias: List<DTOCategoria>,
@@ -160,55 +155,53 @@ fun CategoriesSection(
         Spacer(modifier = Modifier.height(8.dp))
 
         if (categorias.isEmpty()) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .height(80.dp)
-                        .width(80.dp),
-                    strokeWidth = 2.dp,
-                    color = Color.Black
-                )
-            }
+            cargandoCirculo()
         } else {
-            categorias.chunked(3).forEach { rowCategories ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    rowCategories.forEach { category ->
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            val imagePainter: Painter = rememberAsyncImagePainter(
-                                model = category.url
-                            )
-
-                            Box(
-                                modifier = Modifier
-                                    .size(100.dp)
-                                    .clickable {
-                                        category.CategoriaId?.let { onCategoryClick(it) }
-                                    }
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(categorias.chunked(3)) { rowCategories -> // Agrupa las categorías en filas de 3
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceAround
+                    ) {
+                        rowCategories.forEach { category ->
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.weight(1f)
                             ) {
-                                Image(
-                                    painter = imagePainter,
-                                    contentDescription = category.NomCategoria,
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentScale = ContentScale.Crop
+                                val imagePainter: Painter = rememberAsyncImagePainter(
+                                    model = category.url
+                                )
+
+                                Box(
+                                    modifier = Modifier
+                                        .size(100.dp)
+                                        .clickable {
+                                            category.CategoriaId?.let { onCategoryClick(it) }
+                                        }
+                                ) {
+                                    Image(
+                                        painter = imagePainter,
+                                        contentDescription = category.NomCategoria,
+                                        modifier = Modifier.fillMaxSize(),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                }
+                                Text(
+                                    text = category.NomCategoria,
+                                    fontSize = 16.sp,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.padding(top = 8.dp)
                                 )
                             }
-                            Text(
-                                text = category.NomCategoria,
-                                fontSize = 16.sp,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
+                        }
+                        // Espaciado si hay menos de 3 elementos en la fila
+                        repeat(3 - rowCategories.size) {
+                            Spacer(modifier = Modifier.weight(1f))
                         }
                     }
                 }

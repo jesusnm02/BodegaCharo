@@ -1,4 +1,8 @@
 package com.principio.mobilebodegacharo.DTO
 
-class DTOPedidos {
-}
+data class DTOPedidos(
+    var DNI: String? = null,
+    var FechaInicio: String? = null,
+    var PrecioTotal: Double? = null,
+    var Productos: List<DTOListaProductos>? = null
+)
